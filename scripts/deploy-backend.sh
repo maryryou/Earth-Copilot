@@ -383,7 +383,12 @@ create_container_app() {
   if [ -n "$KV_NAME" ] && [ -n "$AZURE_MAPS_KEY" ]; then
     echo "  Granting Container App MI 'Key Vault Secrets User' on $KV_NAME..."
     KV_ID=$(az keyvault show --name "$KV_NAME" --query id -o tsv)
+    ROLE_ALREADY_EXISTS=$(az role assignment list --role "Key Vault Secrets User" --assignee-object-id "$CA_IDENTITY" --scope "$KV_ID" --query "[0].id" -o tsv 2>/dev/null || echo "")
     az role assignment create --role "Key Vault Secrets User" --assignee-object-id "$CA_IDENTITY" --assignee-principal-type ServicePrincipal --scope "$KV_ID" --output none 2>/dev/null || true
+    if [ -z "$ROLE_ALREADY_EXISTS" ]; then
+      echo "  Waiting 60s for Key Vault Secrets User role to propagate before binding KV reference..."
+      sleep 60
+    fi
     echo "  Syncing Maps key to Key Vault: $KV_NAME"
     az keyvault secret set --vault-name "$KV_NAME" --name azure-maps-subscription-key --value "$AZURE_MAPS_KEY" --output none || echo "  WARNING: failed to write KV secret"
     az containerapp secret set \
