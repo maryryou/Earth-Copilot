@@ -231,9 +231,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v3
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Purge Soft-Deleted Resources
         run: |
@@ -561,9 +559,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v3
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Discover Resource Names
         id: discover
@@ -696,9 +692,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v3
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Discover Resource Names
         id: discover
@@ -934,9 +928,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v3
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Enable Agent Service
         id: enable
@@ -1184,9 +1176,7 @@ jobs:
         if: steps.check.outputs.mode != 'skip'
         uses: azure/login@v3
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Configure Entra ID Authentication
         id: auth
@@ -1394,9 +1384,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v3
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Generate Summary
         run: |
